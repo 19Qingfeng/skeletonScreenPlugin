@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { SkeletonScreenPlugin } = require('../src/index');
 
 module.exports = {
   mode: 'development',
@@ -33,6 +34,12 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: resolve(__dirname, './public/index.html'),
+    }),
+    new SkeletonScreenPlugin({
+      // 打包生成后的静态目录
+      dir: resolve(__dirname, './dist'),
+      port: 9000,
+      origin: 'http://localhost:9000'
     }),
   ],
 };

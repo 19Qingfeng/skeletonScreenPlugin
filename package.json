@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/19Qingfeng/skeletonScreenPlugin/issues"
   },
-  "homepage": "https://github.com/19Qingfeng/skeletonScreenPlugin#readme"
+  "homepage": "https://github.com/19Qingfeng/skeletonScreenPlugin#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
