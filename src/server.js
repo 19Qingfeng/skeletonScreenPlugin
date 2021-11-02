@@ -22,8 +22,9 @@ class Server {
   // 关闭
   close() {
     return new Promise((resolve) => {
-      this.httpServer.close(this.options.port, () => {
+      this.httpServer.close(() => {
         resolve();
+        console.log('Server Close!');
       });
     });
   }
