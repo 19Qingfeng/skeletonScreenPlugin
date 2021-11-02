@@ -17,6 +17,7 @@
     "@babel/preset-typescript": "^7.16.0",
     "babel-loader": "^8.2.3",
     "html-webpack-plugin": "^5.5.0",
+    "puppeteer": "^10.4.0",
     "webpack-dev-server": "^4.4.0"
   },
   "dependencies": {
