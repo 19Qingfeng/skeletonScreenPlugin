@@ -1,7 +1,7 @@
-const puppeteer = require('puppeteer');
-const { readFileSync } = require('fs');
-const { resolve } = require('path');
-const { sleep } = require('./uitls');
+const puppeteer = require("puppeteer");
+const { readFileSync } = require("fs");
+const { resolve } = require("path");
+const { sleep } = require("./uitls");
 
 class Skeleton {
   constructor(options) {
@@ -18,10 +18,10 @@ class Skeleton {
 
   async generatePage() {
     // 打开新的页签tab 拿到新的page
-    this.page = await this.openNewPage();
+    const page = (this.page = await this.openNewPage());
     // 输入地址 等待仅有两个网络链接时Promise完成
     const response = await this.gotoPage({
-      waitUntil: 'networkidle2',
+      waitUntil: "networkidle2",
     });
     // 失败
     if (response && !response.ok()) {
@@ -29,7 +29,16 @@ class Skeleton {
     }
     // 需要生成骨架屏DOM结构
     await this.makeSkeleton();
-    return 'html';
+    const { html, styles } = await page.evaluate(() =>
+      window.Skeleton.getSkeleton()
+    );
+
+    const result = `
+      <style>${styles.join("\n")}</style>
+      ${html}
+    `;
+
+    return result;
   }
 
   // 打开新的页签
@@ -50,17 +59,22 @@ class Skeleton {
   // 通过原始DOM结构获得骨架屏结构
   async makeSkeleton() {
     const page = this.page;
-    const { defer = 500 } = this.options;
+    const { defer = 1000 } = this.options;
     // 往页面注入script脚本
     const content = await readFileSync(
-      resolve(__dirname, './create-skeleton-script.js'),
-      'utf-8'
+      resolve(__dirname, "./create-skeleton-script.js"),
+      "utf-8"
     );
     page.addScriptTag({
       content,
     });
-    // 延迟
+    // 延迟 让脚本进行跑
     await sleep(defer);
+    // 通过puppeteer调用页面方法
+    // 等待将页面结构转化为骨架屏
+    await page.evaluate((options) => {
+      window.Skeleton.generateSkeleton(options);
+    }, this.options);
   }
 
   // 销毁
