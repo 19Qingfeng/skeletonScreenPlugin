@@ -11,8 +11,8 @@ class Skeleton {
   async initialize() {
     // 启动 puppeteer
     this.page = await puppeteer.launch({
-      // 配置无头
-      headless: false,
+      // 配置无头 true表示不打开浏览器
+      headless: true,
     });
   }
 

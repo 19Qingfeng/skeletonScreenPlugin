@@ -1,10 +1,15 @@
-const Server = require('./server');
-const Skeleton = require('./skeleton');
-const NAME = 'SkeletonScreenPlugin';
+const Server = require("./server");
+const Skeleton = require("./skeleton");
+const { validate } = require("schema-utils");
+const schema = require("./uitls/schema");
+
+const NAME = "SkeletonScreenPlugin";
 
 class SkeletonScreenPlugin {
   constructor(options) {
     this.options = options;
+    // 参数校验内容
+    validate(schema, options, { name: NAME });
   }
   apply(compiler) {
     compiler.hooks.done.tap(NAME, async () => {
@@ -17,7 +22,7 @@ class SkeletonScreenPlugin {
       await this.skeleton.initialize();
       // 生成骨架页面 HTML和CSS
       const skeletonHTML = await this.skeleton.generatePage();
-      console.log(skeletonHTML, 'skeletonHTML');
+      console.log(skeletonHTML, "skeletonHTML");
       // 销毁骨架屏 无头浏览器
       // this.skeleton.destroy();
       // 结束后，关闭服务器

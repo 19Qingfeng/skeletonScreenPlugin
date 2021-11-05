@@ -41,6 +41,13 @@ module.exports = {
       port: 9000,
       origin: "http://localhost:9000",
       device: "iPhone 6",
+      // 配置项手册
+      button: {
+        color: "#EFEFEF",
+      },
+      image: {
+        color: "#000",
+      },
     }),
   ],
 };
