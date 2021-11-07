@@ -4,6 +4,9 @@ const schema = {
     dir: {
       type: "string",
     },
+    output: {
+      type: "string",
+    },
     port: {
       type: "number",
       // anyOf: [{ type: "array" }, { type: "string" }, { instanceof: "RegExp" }],

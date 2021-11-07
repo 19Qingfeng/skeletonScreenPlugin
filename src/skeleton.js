@@ -12,7 +12,7 @@ class Skeleton {
     // 启动 puppeteer
     this.page = await puppeteer.launch({
       // 配置无头 true表示不打开浏览器
-      headless: true,
+      headless: false,
     });
   }
 
@@ -27,8 +27,9 @@ class Skeleton {
     if (response && !response.ok()) {
       throw new Error(`${response.status} on ${this.options.origin} is Error!`);
     }
-    // 需要生成骨架屏DOM结构
+    // 将页面转化为骨架屏
     await this.makeSkeleton();
+    // 获得生成的骨架屏幕样式和html
     const { html, styles } = await page.evaluate(() =>
       window.Skeleton.getSkeleton()
     );
@@ -38,7 +39,11 @@ class Skeleton {
       ${html}
     `;
 
-    return result;
+    return {
+      result,
+      css: styles.join("\n"),
+      html,
+    };
   }
 
   // 打开新的页签

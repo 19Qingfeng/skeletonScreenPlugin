@@ -1,3 +1,8 @@
+/**
+ *
+ * @param {*} duration 睡眠时间
+ * @returns
+ */
 function sleep(duration) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -7,5 +12,5 @@ function sleep(duration) {
 }
 
 module.exports = {
-  sleep
-}
+  sleep,
+};

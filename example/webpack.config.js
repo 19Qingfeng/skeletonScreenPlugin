@@ -38,6 +38,7 @@ module.exports = {
     new SkeletonScreenPlugin({
       // 打包生成后的静态目录
       dir: resolve(__dirname, "./dist"),
+      output: resolve(__dirname, "skeleton-output"),
       port: 9000,
       origin: "http://localhost:9000",
       device: "iPhone 6",
